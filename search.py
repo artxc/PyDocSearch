@@ -3,10 +3,12 @@ import os
 #just test commit
 
 def main():
-    docs = os.listdir()
+    os.chdir('./std_docs_txt')
+    docs = os.listdir(os.getcwd())
     index = InvertedIndex(docs)
     index.build()
-    # Process queries
+
+    print(index.description_index)
 
 
 if __name__ == '__main__':
