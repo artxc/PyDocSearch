@@ -1,6 +1,6 @@
 from inverted_index import InvertedIndex
 import os
-
+#just test commit
 
 def main():
     docs = os.listdir()
