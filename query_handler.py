@@ -11,6 +11,7 @@ class QueryHandler:
         self.class_score = 5
         self.attribute_score = 8
         self.description_score = 1
+        self.url = 'https://docs.python.org/3/library/'
 
     def process_query(self, query):
         tokens = query.lower().split()
@@ -37,6 +38,7 @@ class QueryHandler:
             print('Найденные документы:')
             for doc_id in sorted(doc_scores, key=doc_scores.get, reverse=True):
                 print(self.index.corpus[doc_id], f'(score = {doc_scores[doc_id]})')
+                webbrowser.open_new(self.url + self.index.corpus[doc_id].strip())
         else:
             print('Ничего не найдено')
 
