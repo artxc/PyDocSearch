@@ -2,7 +2,7 @@ import os
 from inverted_index import InvertedIndex
 from query_handler import QueryHandler
 
-RELATIVE_PATH_TO_CORPUS = './std_docs_txt'
+RELATIVE_PATH_TO_CORPUS = './std_docs'
 
 
 def main():
