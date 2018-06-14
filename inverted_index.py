@@ -40,18 +40,9 @@ class InvertedIndex:
 
     def build(self):
         for doc_id, file_name in enumerate(self.corpus):
-            with open(file_name) as f:
+            with open(file_name, encoding='utf-8') as f:
                 soup = BeautifulSoup(f, 'lxml')
 
             self.build_attributes_index(doc_id, soup)
             self.build_classes_index(doc_id, soup)
             self.build_description_index(doc_id, soup)
-
-    def get_classes_postings(self, term):
-        return self.classes_index[term]
-
-    def get_attributes_postings(self, term):
-        return self.attributes_index[term]
-
-    def get_description_postings(self, term):
-        return self.description_index[term]
