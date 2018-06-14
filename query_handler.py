@@ -8,7 +8,7 @@ class QueryHandler:
 
     def loop(self):
         stemmer = PorterStemmer()
-        print('Введите запросы после приглашения. Набирите -exit, чтобы выйти')
+        print('Введите запросы после приглашения. Наберите -exit, чтобы выйти')
 
         while True:
             query = input('> ').strip()
