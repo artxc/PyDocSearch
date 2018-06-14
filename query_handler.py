@@ -44,7 +44,8 @@ class QueryHandler:
             if doc_to_open == 'n':
                 break
             for word in tokens:
-                 webbrowser.open_new(self.url + doc_to_open + '#' + word.strip())
+                word = word.split(".")[-1]
+                webbrowser.open_new(self.url + doc_to_open + '#' + doc_to_open[:-5] + '.' + word.strip())
             continue_opening = input('Ещё?(y/n)')
             if continue_opening == 'n':
                 break
