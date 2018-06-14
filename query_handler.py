@@ -1,5 +1,6 @@
 from nltk.stem.porter import PorterStemmer
 from collections import defaultdict
+import webbrowser
 
 
 class QueryHandler:
