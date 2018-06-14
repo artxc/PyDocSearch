@@ -38,7 +38,16 @@ class QueryHandler:
             print('Найденные документы:')
             for doc_id in sorted(doc_scores, key=doc_scores.get, reverse=True):
                 print(self.index.corpus[doc_id], f'(score = {doc_scores[doc_id]})')
-                webbrowser.open_new(self.url + self.index.corpus[doc_id].strip())
+                
+        while True:
+            doc_to_open = input('Какой из документов желаете открыть в браузере?')
+            if doc_to_open == 'n':
+                break
+            for word in tokens:
+                webbrowser.open_new(self.url + self.index.corpus[doc_id].strip() + '#' + word.strip())
+            continue_opening = input('Ещё?(y/n)')
+            if continue_opening == 'n':
+                break
         else:
             print('Ничего не найдено')
 
