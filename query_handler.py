@@ -7,7 +7,7 @@ class QueryHandler:
         self.index = index
         self.stemmer = PorterStemmer()
 
-    def proccess_query(self, query):
+    def process_query(self, query):
         terms = [self.stemmer.stem(token) for token in query.split()]
         doc_ids = set.intersection(*[self.index.get_postings(term) for term in terms])
 
@@ -23,5 +23,5 @@ class QueryHandler:
             if query == '-exit':
                 break
 
-            self.proccess_query(query)
+            self.process_query(query)
             print()
