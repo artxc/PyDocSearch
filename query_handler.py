@@ -49,3 +49,4 @@ class QueryHandler:
 
             self.process_query(query)
             print()
+    
