@@ -17,7 +17,7 @@ class InvertedIndex:
         attribute_names = [attr.get_text() for attr in soup.find_all('code', {'class': 'descname'})]
 
         for attr in attribute_names:
-            self.attributes_index.add(doc_id)
+            self.attributes_index[attr].add(doc_id)
 
     def build_classes_index(self, doc_id, soup):
         class_hierarchies = [_class.get_text() for _class in soup.find_all('code', {'class': 'descclassname'})]
