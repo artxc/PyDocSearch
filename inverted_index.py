@@ -14,13 +14,13 @@ class InvertedIndex:
         self.description_index = defaultdict(set)
 
     def build_attributes_index(self, doc_id, soup):
-        attribute_names = [attr.get_text() for attr in soup.find_all('code', {'class': 'descname'})]
+        attribute_names = [attr.get_text().lower() for attr in soup.find_all('code', {'class': 'descname'})]
 
         for attr in attribute_names:
             self.attributes_index[attr].add(doc_id)
 
     def build_classes_index(self, doc_id, soup):
-        class_hierarchies = [_class.get_text() for _class in soup.find_all('code', {'class': 'descclassname'})]
+        class_hierarchies = [_class.get_text().lower() for _class in soup.find_all('code', {'class': 'descclassname'})]
 
         for _class in class_hierarchies:
             class_names = _class[:-1].split('.')  # _class[:-1] to get rid of trailing dot
