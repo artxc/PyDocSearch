@@ -13,7 +13,7 @@ class InvertedIndex:
     def tokenize_file(self, file_name):
         with open(file_name) as f:
             tokens = word_tokenize(f.read())
-            dot_tokens = [token.split('.') for token in tokens if '.' in tokens]
+            dot_tokens = [token.split('.') for token in tokens if '.' in token]
 
             for token in dot_tokens:
                 tokens.extend(token)
