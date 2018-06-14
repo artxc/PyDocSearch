@@ -22,9 +22,5 @@ class InvertedIndex:
                         stemmed_word = stemmer.stem(word)
                         self.description_index[stemmed_word].add(i)
 
-
-    def get_description_index(self,word):
+    def get_postings(self, word):
         return self.description_index[word]
-
-    def get_corpus(self):
-        return self.corpus

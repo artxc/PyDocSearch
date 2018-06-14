@@ -1,20 +1,24 @@
 from nltk.stem.porter import PorterStemmer
 
+
 class QueryHandler:
 
     def __init__(self, index):
         self.index = index
 
     def loop(self):
-        enumerate_corpus=dict((i,file) for i,file in enumerate(self.index.get_corpus()))
         stemmer = PorterStemmer()
+        print('Введите запросы после приглашения. Набирите -exit, чтобы выйти')
 
         while True:
-            query=input('Введите запрос\n').split()
-            query=list(map(stemmer.stem,query))
-            doc_numbers=set.intersection(*[self.index.get_description_index(word) for word in query])
-            print('Документы:')
-            for i in doc_numbers:
-                print(enumerate_corpus[i])
+            query = input('> ').strip()
+            if query == '-exit':
+                break
 
+            terms = [stemmer.stem(token) for token in query.split()]
+            doc_ids = set.intersection(*[self.index.get_postings(term) for term in terms])
 
+            print('Найденные документы:')
+            for i in doc_ids:
+                print(self.index.corpus[i])
+            print()
