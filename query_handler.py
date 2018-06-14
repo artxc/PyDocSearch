@@ -4,40 +4,40 @@ from collections import defaultdict
 
 class QueryHandler:
 
-    def __init__(self, index, class_score=8, attribut_score=5, description_score=3):
+    def __init__(self, index):
         self.index = index
         self.stemmer = PorterStemmer()
-        self.class_score = class_score
-        self.attribut_score = attribut_score
-        self.description_score = description_score
-
-    def count_term_score(self, doc_scores, term):
-        for doc_id in self.index.get_class_postings(term):
-            doc_scores[doc_id] += self.class_score
-        for doc_id in self.index.get_attribut_postings(term):
-            doc_scores[doc_id] += self.attribut_score
-        for doc_id in self.index.get_description_postings(self.stemmer.stem(term)):
-            doc_scores[doc_id] += self.description_score
+        self.class_score = 5
+        self.attribute_score = 8
+        self.description_score = 1
 
     def process_query(self, query):
+        tokens = query.lower().split()
         doc_scores = defaultdict(int)
-        terms = query.split()
 
-        for term in terms:
-            if '.' in term:
-                for subterm in term.split('.'):
-                    self.count_term_score(doc_scores, subterm)
+        for token in tokens:
+            if '.' in token:
+                compound_token = token.split('.')
+                for class_name in compound_token[:-1]:
+                    for posting in self.index.classes_index[class_name]:
+                        doc_scores[posting] += self.class_score
+
+                for posting in self.index.attributes_index[compound_token[-1]]:
+                    doc_scores[posting] += self.attribute_score
             else:
-                self.count_term_score(doc_scores, term)
+                for posting in self.index.classes_index[token]:
+                    doc_scores[posting] += self.class_score
+                for posting in self.index.attributes_index[token]:
+                    doc_scores[posting] += self.attribute_score
+                for posting in self.index.description_index[self.stemmer.stem(token)]:
+                    doc_scores[posting] += self.description_score
 
-        doc_ids = [doc_id for doc_id in sorted(doc_scores, key=doc_scores.get, reverse=True)]
-
-        if doc_ids:
+        if doc_scores:
             print('Найденные документы:')
-            for i in doc_ids:
-                print(self.index.corpus[i])
+            for doc_id in sorted(doc_scores, key=doc_scores.get, reverse=True):
+                print(self.index.corpus[doc_id], f'(score = {doc_scores[doc_id]})')
         else:
-            print('Ничего не найдено.')
+            print('Ничего не найдено')
 
     def loop(self):
         print('Введите запросы после приглашения. Наберите -exit, чтобы выйти')
@@ -49,4 +49,3 @@ class QueryHandler:
 
             self.process_query(query)
             print()
-    
