@@ -24,12 +24,12 @@ class InvertedIndex:
         stemmer = PorterStemmer()
         stop_words = set(stopwords.words('english'))
 
-        for i, file_name in enumerate(self.corpus):
+        for doc_id, file_name in enumerate(self.corpus):
             tokens = self.tokenize_file(file_name)
             for token in tokens:
                 if token not in stop_words:
                     term = stemmer.stem(token)
-                    self.description_index[term].add(i)
+                    self.description_index[term].add(doc_id)
 
     def get_postings(self, term):
         return self.description_index[term]
