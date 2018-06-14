@@ -28,8 +28,8 @@ class InvertedIndex:
             tokens = self.tokenize_file(file_name)
             for token in tokens:
                 if token not in stop_words:
-                    stemmed_word = stemmer.stem(token)
-                    self.description_index[stemmed_word].add(i)
+                    term = stemmer.stem(token)
+                    self.description_index[term].add(i)
 
-    def get_postings(self, word):
-        return self.description_index[word]
+    def get_postings(self, term):
+        return self.description_index[term]
