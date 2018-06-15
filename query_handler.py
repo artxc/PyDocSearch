@@ -12,7 +12,7 @@ class QueryHandler:
         self.class_score = 5
         self.attribute_score = 8
         self.description_score = 1
-        self.url = os.getcwd() + '\\'
+        self.url = os.getcwd() + '/'
 
     def process_query(self, query):
         tokens = query.lower().split()
@@ -41,14 +41,13 @@ class QueryHandler:
                 print(self.index.corpus[doc_id], f'(score = {doc_scores[doc_id]})')
                 
         while True:
-            doc_to_open = input('Какой из документов желаете открыть в браузере?')
+            doc_to_open = input('Какой из документов желаете открыть в браузере?\n> ')
             if doc_to_open == 'n':
                 break
             for word in tokens:
                 word = word.split(".")[-1]
-                print(self.url + doc_to_open + '#' + doc_to_open[:-5] + '.' + word.strip())
-                webbrowser.open_new(self.url + doc_to_open + '#' + doc_to_open[:-5] + '.' + word.strip())
-            continue_opening = input('Ещё?(y/n)')
+                webbrowser.open_new_tab(self.url + doc_to_open + '#' + doc_to_open[:-5] + '.' + word.strip())
+            continue_opening = input('Ещё?(y/n)\n> ')
             if continue_opening == 'n':
                 break
         else:
