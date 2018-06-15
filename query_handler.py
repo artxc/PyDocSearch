@@ -54,10 +54,10 @@ class QueryHandler:
             print('Ничего не найдено')
 
     def loop(self):
-        print('Введите запросы после приглашения. Наберите -exit, чтобы выйти')
+        print('Введите запросы после приглашения. Наберите -exit, чтобы выйти\n')
 
         while True:
-            query = input('> ').strip()
+            query = input('Введите новый запрос\n> ').strip()
             if query == '-exit':
                 break
 
