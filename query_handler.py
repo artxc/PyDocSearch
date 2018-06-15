@@ -1,6 +1,7 @@
 from nltk.stem.porter import PorterStemmer
 from collections import defaultdict
 import webbrowser
+import os
 
 
 class QueryHandler:
@@ -11,7 +12,7 @@ class QueryHandler:
         self.class_score = 5
         self.attribute_score = 8
         self.description_score = 1
-        self.url = 'https://docs.python.org/3/library/'
+        self.url = os.getcwd() + '\\'
 
     def process_query(self, query):
         tokens = query.lower().split()
@@ -45,6 +46,7 @@ class QueryHandler:
                 break
             for word in tokens:
                 word = word.split(".")[-1]
+                print(self.url + doc_to_open + '#' + doc_to_open[:-5] + '.' + word.strip())
                 webbrowser.open_new(self.url + doc_to_open + '#' + doc_to_open[:-5] + '.' + word.strip())
             continue_opening = input('Ещё?(y/n)')
             if continue_opening == 'n':
