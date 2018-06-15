@@ -44,9 +44,11 @@ class QueryHandler:
             doc_to_open = input('Какой из документов желаете открыть в браузере?\n> ')
             if doc_to_open == 'n':
                 break
-            for word in tokens:
-                word = word.split(".")[-1]
-                webbrowser.open_new_tab(self.url + doc_to_open + '#' + doc_to_open[:-5] + '.' + word.strip())
+
+            for token in tokens:
+                token = token.split(".")[-1]
+                webbrowser.open_new_tab(self.url + doc_to_open + '#' + doc_to_open[:-5] + '.' + token.strip())
+
             continue_opening = input('Ещё?(y/n)\n> ')
             if continue_opening == 'n':
                 break
